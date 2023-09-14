@@ -4,9 +4,9 @@ from tracemalloc import start
 import pygame, sys, math
 import numpy as np
 
-SCREEN_HEIGHT = 850
-SCREEN_WIDTH = 850
-GRID_DIM = 10
+SCREEN_HEIGHT = 1280
+SCREEN_WIDTH = 1280
+GRID_DIM = 80
 SQUARE_SIZE = SCREEN_WIDTH // GRID_DIM
 FPS = 60
 
@@ -29,18 +29,15 @@ class Node:
 mouseX = 0
 mouseY = 0
 distanceArray = []
-gridSquare = [
-    [2,0,0,0,0,0,0,0,0,0],
-    [1,1,0,1,1,1,1,1,1,0],
-    [1,1,0,1,1,1,1,1,1,0],
-    [1,1,0,1,1,1,1,1,1,0],
-    [1,1,0,1,1,1,1,1,1,0],
-    [1,1,0,1,1,1,1,1,1,0],
-    [1,1,0,1,1,1,1,1,1,0],
-    [0,0,0,1,1,1,1,1,1,0],
-    [0,1,1,1,1,1,1,1,1,0],
-    [0,0,0,0,0,0,0,0,0,3]
-]
+def createGrid(dimension):
+    if dimension < 1:
+        raise ValueError("Dimension must be at least 1.")
+    
+    grid = [[0] * dimension for _ in range(dimension)]
+    
+    return grid
+
+gridSquare = createGrid(GRID_DIM)
 nodeVisited = []
 nodeList = []
 queueList = []
@@ -51,7 +48,6 @@ startX = 0
 startY = 0
 endX = 9
 endY = 9
-
 
 for i in range(GRID_DIM):
     for j in range(GRID_DIM):
